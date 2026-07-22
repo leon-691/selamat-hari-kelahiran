@@ -1,0 +1,390 @@
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+
+/* --- Button --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border: none;
+  border-radius: 999px;
+  padding: 0.9em 1.8em;
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-pop);
+  transition: transform var(--dur-fast) var(--ease-out-soft),
+              background var(--dur-fast) var(--ease-out-soft);
+}
+
+.btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  box-shadow: none;
+}
+
+.btn--ghost:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* --- Section wrapper --- */
+.section {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  position: relative;
+}
+
+.eyebrow {
+  font-family: var(--font-accent);
+  font-size: var(--fs-xl);
+  color: var(--color-primary);
+  margin-bottom: 0.2em;
+}
+
+/* --- Mascot blob (signature character, pure CSS/SVG, no external art needed) --- */
+.mascot {
+  width: 120px;
+  height: auto;
+}
+
+/* --- Card --- */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* --- Password keypad --- */
+.keypad-clue {
+  font-family: var(--font-accent);
+  font-size: var(--fs-lg);
+  color: var(--color-text-soft);
+  margin-bottom: var(--space-sm);
+}
+
+.keypad-dots {
+  display: flex;
+  gap: 0.6em;
+  justify-content: center;
+  margin-bottom: var(--space-md);
+}
+
+.keypad-dots__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  background: transparent;
+  transition: background var(--dur-fast) var(--ease-out-soft),
+              transform var(--dur-fast) var(--ease-out-soft);
+}
+
+.keypad-dots__dot.is-filled {
+  background: var(--color-primary);
+  transform: scale(1.15);
+}
+
+.keypad-dots.is-error .keypad-dots__dot {
+  border-color: #E85D5D;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7em;
+  width: 100%;
+  max-width: 300px;
+}
+
+.keypad__key {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  box-shadow: var(--shadow-pop);
+  transition: transform var(--dur-fast) var(--ease-out-soft);
+}
+
+.keypad__key:hover {
+  transform: translateY(-2px);
+}
+
+.keypad__key:active {
+  transform: scale(0.94);
+}
+
+.keypad__key--action {
+  font-size: var(--fs-base);
+  color: var(--color-text-soft);
+}
+
+.keypad__spacer {
+  visibility: hidden;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.is-shaking {
+  animation: shake 420ms var(--ease-out-soft);
+}
+
+/* --- Floating music pill (persistent across the whole page) --- */
+.music-pill {
+  position: fixed;
+  left: 50%;
+  bottom: var(--space-sm);
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  background: var(--color-surface);
+  border-radius: 999px;
+  padding: 0.5em 0.9em 0.5em 0.5em;
+  box-shadow: var(--shadow-card);
+  max-width: calc(var(--content-width) - 2 * var(--space-md));
+  width: calc(100% - 2 * var(--space-md));
+}
+
+.music-pill__toggle {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.music-pill__meta {
+  overflow: hidden;
+  text-align: left;
+  flex: 1;
+}
+
+.music-pill__title {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-pill__subtitle {
+  font-size: var(--fs-xs);
+  color: var(--color-text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-pill__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.music-pill__bars span {
+  width: 3px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  animation: bar-bounce 900ms ease-in-out infinite;
+}
+
+.music-pill__bars span:nth-child(2) { animation-delay: 150ms; }
+.music-pill__bars span:nth-child(3) { animation-delay: 300ms; }
+
+.music-pill.is-paused .music-pill__bars span {
+  animation-play-state: paused;
+  height: 3px !important;
+}
+
+@keyframes bar-bounce {
+  0%, 100% { height: 4px; }
+  50% { height: 14px; }
+}
+
+/* --- Polaroid / scrapbook photo card --- */
+.photo-card {
+  position: relative;
+  background: var(--color-surface);
+  padding: 0.6em 0.6em 1.6em;
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+  transform: rotate(var(--tilt, -3deg));
+}
+
+.photo-card__frame {
+  aspect-ratio: 4 / 5;
+  border-radius: 3px;
+  background: var(--color-bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-soft);
+  font-size: var(--fs-xs);
+  text-align: center;
+  padding: var(--space-xs);
+  overflow: hidden;
+}
+
+.photo-card__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-card__caption {
+  font-family: var(--font-accent);
+  font-size: var(--fs-base);
+  text-align: center;
+  margin-top: 0.4em;
+  color: var(--color-text);
+}
+
+.washi-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 70px;
+  height: 26px;
+  background: var(--color-secondary);
+  opacity: 0.85;
+  box-shadow: var(--shadow-pop);
+}
+
+/* --- Quote line (progressive reveal, one focus per screen) ---
+   Dipakai di section kutipan singkat. min-height membuat tiap baris
+   "mengisi" sebagian besar layar saat discroll -- efeknya otomatis
+   mengikuti jumlah baris, tidak dihardcode. */
+.quote-line {
+  min-height: 55svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-lg);
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--color-primary);
+  max-width: 20ch;
+  margin: 0 auto;
+  padding: 0 var(--space-sm);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out-soft),
+              transform var(--dur-slow) var(--ease-out-soft);
+}
+
+.quote-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Flowing letter (surat panjang) ---
+   Judul tetap terlihat (sticky) sementara isi surat terungkap
+   kalimat demi kalimat saat discroll, mengikuti posisi baca (bukan
+   tersembunyi total lalu langsung muncul -- transisi warna/opacity
+   halus mengikuti seberapa dekat kalimat itu ke tengah layar). */
+.letter-heading {
+  position: sticky;
+  top: 6svh;
+  z-index: 5;
+  background: var(--color-bg);
+  padding: var(--space-xs) 0;
+  text-align: center;
+}
+
+.letter-body {
+  max-width: 32ch;
+  margin: var(--space-lg) auto 0;
+}
+
+.letter-sentence {
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  color: var(--color-text-soft);
+  opacity: 0.4;
+  margin: 0 0 10svh;
+  transition: color var(--dur-base) var(--ease-out-soft),
+              opacity var(--dur-base) var(--ease-out-soft);
+}
+
+.letter-sentence.is-active {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.letter-sentence:last-child {
+  margin-bottom: var(--space-lg);
+}
+
+/* --- Confirm section (yes/no + reaksi) --- */
+.confirm-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-sm);
+}
+
+/* --- Scroll progress bar --- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--color-primary);
+  width: 0%;
+  z-index: 60;
+  transition: width var(--dur-fast) linear;
+}
+
+/* --- Generic scroll-reveal utility (used outside the letter section) --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--dur-base) var(--ease-out-soft),
+              transform var(--dur-base) var(--ease-out-soft);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

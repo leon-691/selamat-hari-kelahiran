@@ -1,0 +1,130 @@
+/* ==========================================================================
+   SECTIONS
+   ========================================================================== */
+
+/* --- Shared small hint text (dipakai di gerbang) --- */
+.hint-text {
+  font-size: var(--fs-sm);
+  color: var(--color-text-soft);
+  margin-top: var(--space-sm);
+}
+
+/* --- 1. Gerbang (password) -- halaman pertama, judulnya h1 --- */
+.section--gate .mascot {
+  margin-bottom: var(--space-sm);
+}
+
+.section--gate h1 {
+  font-size: var(--fs-xl);
+  max-width: 22ch;
+}
+
+/* --- 2. Sapaan --- */
+.section--greeting h1 {
+  font-size: var(--fs-2xl);
+  margin-bottom: var(--space-md);
+}
+
+/* --- 3. Konfirmasi --- */
+.section--confirm h2 {
+  font-size: var(--fs-lg);
+  max-width: 22ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- 4. Reveal (age number) --- */
+.reveal-number {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+  position: relative;
+}
+
+.section--reveal h2 {
+  font-size: var(--fs-xl);
+  margin-top: var(--space-sm);
+}
+
+/* --- 5. Pesan utama --- */
+.section--message .card {
+  max-width: 380px;
+  margin-bottom: var(--space-md);
+}
+
+.section--message p {
+  font-size: var(--fs-base);
+}
+
+/* --- 6. Transisi -- beat singkat, tidak perlu setinggi layar penuh --- */
+.section--transition {
+  min-height: 45svh;
+}
+
+.transition-text {
+  font-family: var(--font-accent);
+  font-size: var(--fs-xl);
+  color: var(--color-primary);
+  max-width: 18ch;
+}
+
+/* --- 7. Galeri --- */
+.section--gallery {
+  display: block;
+  padding-top: var(--space-lg);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md) var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: 0 var(--space-xs);
+}
+
+.gallery-grid .photo-card:nth-child(1) { --tilt: -4deg; margin-top: 1.5em; }
+.gallery-grid .photo-card:nth-child(2) { --tilt: 3deg; }
+.gallery-grid .photo-card:nth-child(3) { --tilt: 2deg; }
+.gallery-grid .photo-card:nth-child(4) { --tilt: -3deg; margin-top: 1.5em; }
+
+/* --- 8. Kutipan singkat ---
+   Setiap baris punya tinggi minimum ~55% layar. Tingginya
+   proporsional ke JUMLAH baris (bukan angka tetap), jadi
+   menambah/mengurangi baris di content.js otomatis menyesuaikan
+   panjang scroll -- tidak akan menyisakan area kosong di akhir. */
+.section--quotes {
+  display: block;
+  padding: var(--space-xl) 0;
+}
+
+/* --- 9. Lagu --- */
+.section--song iframe {
+  width: 100%;
+  max-width: 380px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border: none;
+}
+
+.section--song__note {
+  font-size: var(--fs-xs);
+  color: var(--color-text-soft);
+  margin-top: var(--space-sm);
+  max-width: 32ch;
+}
+
+/* --- 10. Surat panjang -- tombol "kembali ke awal" ada di ujungnya --- */
+.section--letter {
+  display: block;
+  padding: var(--space-xl) 0 var(--space-xl);
+  text-align: center;
+}
+
+/* --- Dekorasi mengambang (subtle, perayaan bukan romantis) --- */
+.decor {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.6;
+}

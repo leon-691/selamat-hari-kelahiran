@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untuk Adik</title>
+  <meta name="description" content="Sebuah kejutan kecil, dibuat khusus untukmu." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Caveat:wght@600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="src/styles/variables.css" />
+  <link rel="stylesheet" href="src/styles/base.css" />
+  <link rel="stylesheet" href="src/styles/components.css" />
+  <link rel="stylesheet" href="src/styles/sections.css" />
+  <link rel="stylesheet" href="src/styles/animations.css" />
+</head>
+<body>
+
+  <!-- Sprite mascot -- didefinisikan sekali, dipakai ulang di beberapa section -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mascot-blob" viewBox="0 0 120 130">
+      <ellipse cx="60" cy="118" rx="34" ry="6" fill="var(--color-shadow)" />
+      <path d="M60 15 C90 15 105 40 105 68 C105 100 85 118 60 118 C35 118 15 100 15 68 C15 40 30 15 60 15 Z" fill="var(--color-primary-light)" />
+      <path d="M30 26 C21 14 32 2 46 10 C40 17 34 23 30 26 Z" fill="var(--color-primary-light)" />
+      <path d="M90 26 C99 14 88 2 74 10 C80 17 86 23 90 26 Z" fill="var(--color-primary-light)" />
+      <ellipse cx="60" cy="96" rx="25" ry="17" fill="var(--color-bg)" opacity="0.9" />
+      <circle cx="38" cy="72" r="7" fill="var(--color-blush)" opacity="0.7" />
+      <circle cx="82" cy="72" r="7" fill="var(--color-blush)" opacity="0.7" />
+      <path d="M42 58 Q48 50 54 58" stroke="var(--color-text)" stroke-width="3.5" fill="none" stroke-linecap="round" />
+      <path d="M66 58 Q72 50 78 58" stroke="var(--color-text)" stroke-width="3.5" fill="none" stroke-linecap="round" />
+      <ellipse cx="60" cy="72" rx="6" ry="7" fill="var(--color-mascot-mouth)" />
+      <circle cx="102" cy="50" r="9" fill="var(--color-primary-light)" />
+    </symbol>
+    <symbol id="mascot-annoyed" viewBox="0 0 120 130">
+      <ellipse cx="60" cy="118" rx="34" ry="6" fill="var(--color-shadow)" />
+      <path d="M60 15 C90 15 105 40 105 68 C105 100 85 118 60 118 C35 118 15 100 15 68 C15 40 30 15 60 15 Z" fill="var(--color-primary-light)" />
+      <path d="M30 26 C21 14 32 2 46 10 C40 17 34 23 30 26 Z" fill="var(--color-primary-light)" />
+      <path d="M90 26 C99 14 88 2 74 10 C80 17 86 23 90 26 Z" fill="var(--color-primary-light)" />
+      <ellipse cx="60" cy="96" rx="25" ry="17" fill="var(--color-bg)" opacity="0.9" />
+      <circle cx="38" cy="72" r="7" fill="var(--color-blush)" opacity="0.7" />
+      <circle cx="82" cy="72" r="7" fill="var(--color-blush)" opacity="0.7" />
+      <path d="M40 54 L54 60" stroke="var(--color-text)" stroke-width="3.5" fill="none" stroke-linecap="round" />
+      <path d="M80 54 L66 60" stroke="var(--color-text)" stroke-width="3.5" fill="none" stroke-linecap="round" />
+      <path d="M50 76 Q60 70 70 76" stroke="var(--color-mascot-mouth)" stroke-width="5" fill="none" stroke-linecap="round" />
+      <path d="M14 44 L22 48 M14 52 L22 50" stroke="var(--color-text-soft)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+      <path d="M106 44 L98 48 M106 52 L98 50" stroke="var(--color-text-soft)" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    </symbol>
+  </svg>
+
+  <!-- Progress bar & music pill -- persisten di seluruh halaman -->
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+  <div class="music-pill is-paused" data-music-pill>
+    <button class="music-pill__toggle" data-music-toggle aria-pressed="false" aria-label="Putar/jeda musik latar">▶</button>
+    <div class="music-pill__meta">
+      <div class="music-pill__title" data-music-title>Judul lagu</div>
+      <div class="music-pill__subtitle" data-music-subtitle>lagu latar</div>
+    </div>
+    <div class="music-pill__bars" aria-hidden="true"><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="page-backdrop">
+    <main class="page">
+
+      <!-- 1. GERBANG KATA SANDI (halaman pertama) -->
+      <section class="section section--gate" id="gerbang">
+        <svg class="mascot mascot--wave pop-in" aria-hidden="true"><use href="#mascot-blob" /></svg>
+        <h1 class="fade-up fade-up--delay-1" data-key="gateSubtitle">coba tebak kodenya</h1>
+        <div class="keypad-dots fade-up fade-up--delay-2" data-gate-dots></div>
+        <div class="keypad fade-up fade-up--delay-2" data-gate-keypad>
+          <button class="keypad__key" data-key="1">1</button>
+          <button class="keypad__key" data-key="2">2</button>
+          <button class="keypad__key" data-key="3">3</button>
+          <button class="keypad__key" data-key="4">4</button>
+          <button class="keypad__key" data-key="5">5</button>
+          <button class="keypad__key" data-key="6">6</button>
+          <button class="keypad__key" data-key="7">7</button>
+          <button class="keypad__key" data-key="8">8</button>
+          <button class="keypad__key" data-key="9">9</button>
+          <span class="keypad__spacer" aria-hidden="true"></span>
+          <button class="keypad__key" data-key="0">0</button>
+          <button class="keypad__key keypad__key--action" data-key="back" aria-label="Hapus">⌫</button>
+        </div>
+        <p class="hint-text fade-up fade-up--delay-3" data-gate-message data-key="passwordClue">petunjuk</p>
+      </section>
+
+      <!-- 2. SAPAAN (setelah kode benar) -->
+      <section class="section section--greeting" id="sapaan">
+        <svg class="mascot mascot--wave" aria-hidden="true"><use href="#mascot-blob" /></svg>
+        <h1 data-key="greetingText">hai!</h1>
+        <button class="btn" data-greeting-next data-key="greetingButton">lanjut</button>
+      </section>
+
+      <!-- 3. KONFIRMASI (yes/no + reaksi lucu kalau "belum siap") -->
+      <section class="section section--confirm" id="konfirmasi">
+        <div data-confirm-question>
+          <svg class="mascot" aria-hidden="true"><use href="#mascot-blob" /></svg>
+          <h2 data-key="confirmQuestion">udah siap buka kejutannya?</h2>
+          <div class="confirm-actions">
+            <button class="btn" data-confirm-yes data-key="confirmYes">udah siap</button>
+            <button class="btn btn--ghost" data-confirm-no data-key="confirmNo">belum siap</button>
+          </div>
+        </div>
+        <div data-confirm-reaction hidden>
+          <svg class="mascot is-shaking" aria-hidden="true"><use href="#mascot-annoyed" /></svg>
+          <h2 data-key="confirmReactionText">yaah, padahal udah aku siapin</h2>
+          <button class="btn btn--ghost" data-confirm-back data-key="confirmReactionButton">oke, siap sekarang</button>
+        </div>
+      </section>
+
+      <!-- 4. REVEAL UMUR -->
+      <section class="section section--reveal" id="reveal">
+        <p class="eyebrow" data-key="revealPrefix">selamat ulang tahun ke-</p>
+        <div class="reveal-number" data-reveal-number>16</div>
+        <h2 data-key="revealSuffix">semoga makin keren!</h2>
+      </section>
+
+      <!-- 5. PESAN UTAMA -->
+      <section class="section section--message" id="pesan-utama">
+        <div class="card reveal">
+          <h2 data-key="mainMessageTitle">buat kamu yang spesial</h2>
+          <p data-key="mainMessageBody">Pesan hangat ada di sini.</p>
+        </div>
+        <button class="btn reveal" data-message-next data-key="mainMessageButton">aku punya sesuatu buat kamu</button>
+      </section>
+
+      <!-- 6. TRANSISI -->
+      <section class="section section--transition" id="transisi">
+        <p class="transition-text reveal" data-key="transitionText">satu lagi, baca pelan-pelan ya</p>
+      </section>
+
+      <!-- 7. GALERI FOTO -->
+      <section class="section section--gallery" id="galeri">
+        <h2 class="reveal">kenangan kita</h2>
+        <div class="gallery-grid" data-gallery-grid></div>
+      </section>
+
+      <!-- 8. KUTIPAN SINGKAT (satu fokus per layar) -->
+      <section class="section section--quotes" id="kutipan" data-quote-lines></section>
+
+      <!-- 9. LAGU KENANGAN -->
+      <section class="section section--song" id="lagu">
+        <h2 class="reveal" data-key="songTitle">lagu-lagu buat kamu</h2>
+        <p class="reveal" data-key="songSubtitle">cerita singkat di sini</p>
+        <iframe
+          class="reveal"
+          data-key-src="spotifyEmbedSrc"
+          title="Playlist Spotify"
+          style="height: 352px;"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+        <p class="section--song__note">Kalau player di atas kosong, ganti dulu link playlist-nya di <code>content.js</code>.</p>
+      </section>
+
+      <!-- 10. SURAT PANJANG (mengalir, tombol kembali ke awal di ujungnya) -->
+      <section class="section section--letter" id="surat">
+        <h2 class="letter-heading" data-key="letterHeading">selamat ulang tahun ya</h2>
+        <div class="letter-body" data-letter-body></div>
+        <button class="btn reveal" data-replay-button data-key="closingButton">kembali ke awal</button>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="src/scripts/main.js"></script>
+</body>
+</html>
