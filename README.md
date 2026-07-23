@@ -1,11 +1,14 @@
 # Website Ulang Tahun untuk Adik
 
 Kado digital sederhana, **page-based** (berpindah halaman dengan fade,
-bukan satu halaman scroll panjang) -- mengikuti gaya video referensi.
+bukan satu halaman scroll panjang) -- mengikuti gaya video referensi,
+termasuk bahasanya (dominan Inggris, Indonesia hanya di beberapa titik
+yang di video memang berbahasa Indonesia).
+
 Urutannya: gerbang kata sandi → sapaan → konfirmasi (+ reaksi lucu
-kalau "belum siap") → reveal umur → pesan utama → transisi → galeri
-foto → kutipan singkat (satu halaman per kalimat) → lagu kenangan →
-surat panjang (scroll internal, tombol "kembali ke awal" balik ke
+kalau pilih "noo") → reveal umur → pesan utama → transisi → halaman
+kenangan (satu foto + satu kalimat per halaman) → lagu kenangan →
+surat panjang (scroll internal, tombol "Kembali ke Awal" balik ke
 halaman pertama).
 
 ## 1. Yang wajib kamu isi sebelum di-deploy
@@ -16,10 +19,11 @@ tidak perlu sentuh file lain.
 
 Checklist:
 - [ ] `friendName`, `fromName`
-- [ ] `password` + `passwordClue` (default: tanggal lahir format DDMM)
-- [ ] `mainMessageBody`, `quoteLines`, `letterBody` (boleh tambah/kurang jumlah baris/kalimat)
-- [ ] `gallery` — taruh 4 foto di `assets/images/` dengan nama `foto-1.jpg` s/d `foto-4.jpg`
-      (atau ubah nama filenya di `content.js`)
+- [ ] `password`
+- [ ] `mainMessageBody`, `letterBody` (boleh tambah/kurang jumlah kalimat)
+- [ ] `memories` — taruh 5 foto di `assets/images/` dengan nama `foto-1.jpg` s/d `foto-5.jpg`
+      (atau ubah nama filenya di `content.js`; boleh tambah/kurangi jumlah item,
+      halaman otomatis menyesuaikan)
 - [ ] `spotifyEmbedSrc` — lihat cara ambilnya di komentar dalam `content.js`
 - [ ] `backgroundAudioSrc` — taruh file mp3 di `assets/audio/lagu-latar.mp3`
 

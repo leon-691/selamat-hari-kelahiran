@@ -61,21 +61,7 @@
   max-width: 18ch;
 }
 
-/* --- 7. Galeri --- */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md) var(--space-sm);
-  padding: 0 var(--space-xs);
-  max-width: 340px;
-}
-
-.gallery-grid .photo-card:nth-child(1) { --tilt: -4deg; margin-top: 1em; }
-.gallery-grid .photo-card:nth-child(2) { --tilt: 3deg; }
-.gallery-grid .photo-card:nth-child(3) { --tilt: 2deg; }
-.gallery-grid .photo-card:nth-child(4) { --tilt: -3deg; margin-top: 1em; }
-
-/* --- 9. Lagu --- */
+/* --- 8. Lagu --- */
 #lagu iframe {
   width: 100%;
   max-width: 340px;

@@ -96,7 +96,7 @@
         <button class="btn" data-next data-key="greetingButton">lanjut</button>
       </section>
 
-      <!-- 3. KONFIRMASI (yes/no + reaksi lucu kalau "belum siap") -->
+      <!-- 3. KONFIRMASI (yes/no + reaksi lucu kalau pilih "noo") -->
       <section class="view" id="konfirmasi">
         <div data-confirm-question>
           <svg class="mascot" aria-hidden="true"><use href="#mascot-blob" /></svg>
@@ -115,38 +115,32 @@
 
       <!-- 4. REVEAL UMUR -->
       <section class="view" id="reveal">
-        <p class="eyebrow" data-key="revealPrefix">selamat ulang tahun ke-</p>
+        <p class="eyebrow" data-key="revealPrefix">today, you turn</p>
         <div class="reveal-number" data-reveal-number>16</div>
-        <h2 data-key="revealSuffix">semoga makin keren!</h2>
-        <button class="btn" data-next data-key="continueLabel">lanjut</button>
+        <h2 data-key="revealSuffix">happy birthday!!</h2>
+        <button class="btn" data-next data-key="revealButton">open it &lt;3</button>
       </section>
 
       <!-- 5. PESAN UTAMA -->
       <section class="view" id="pesan-utama">
         <div class="card">
-          <h2 data-key="mainMessageTitle">buat kamu yang spesial</h2>
+          <h2 data-key="mainMessageTitle">happy birthday</h2>
           <p data-key="mainMessageBody">Pesan hangat ada di sini.</p>
         </div>
-        <button class="btn" data-next data-key="mainMessageButton">aku punya sesuatu buat kamu</button>
+        <button class="btn" data-next data-key="mainMessageButton">i have something for you</button>
       </section>
 
       <!-- 6. TRANSISI -->
       <section class="view" id="transisi">
-        <p class="transition-text" data-key="transitionText">satu lagi, baca pelan-pelan ya</p>
-        <button class="btn" data-next data-key="continueLabel">lanjut</button>
+        <p class="transition-text" data-key="transitionText">okayy last one...</p>
+        <button class="btn" data-next data-key="continueLabel">klik ini &lt;3</button>
       </section>
 
-      <!-- 7. GALERI FOTO -->
-      <section class="view" id="galeri">
-        <h2>kenangan kita</h2>
-        <div class="gallery-grid" data-gallery-grid></div>
-        <button class="btn" data-next data-key="continueLabel">lanjut</button>
-      </section>
+      <!-- 7. KENANGAN -- dibuat JS, satu halaman per foto+kalimat,
+           persis referensi (bukan grid foto terpisah dari teks) -->
+      <div data-memory-pages></div>
 
-      <!-- 8. KUTIPAN SINGKAT -- dibuat JS, satu halaman per kalimat -->
-      <div data-quote-pages></div>
-
-      <!-- 9. LAGU KENANGAN -->
+      <!-- 8. LAGU KENANGAN -->
       <section class="view" id="lagu">
         <h2 data-key="songTitle">lagu-lagu buat kamu</h2>
         <p data-key="songSubtitle">cerita singkat di sini</p>
@@ -161,7 +155,7 @@
         <button class="btn" data-next data-key="continueLabel">lanjut</button>
       </section>
 
-      <!-- 10. SURAT PANJANG (scroll internal, tombol kembali ke awal di ujungnya) -->
+      <!-- 9. SURAT PANJANG (scroll internal, tombol kembali ke awal di ujungnya) -->
       <section class="view section--letter" id="surat">
         <div class="letter-scroll" data-scroll-container>
           <h2 class="letter-heading" data-key="letterHeading">selamat ulang tahun ya</h2>

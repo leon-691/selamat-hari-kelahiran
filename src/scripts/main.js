@@ -23,22 +23,30 @@ function populateStaticText() {
 }
 
 /**
- * Bangun satu halaman (.view) terpisah untuk tiap kutipan singkat,
- * lalu sisipkan ke tempat placeholder-nya di HTML -- supaya urutan
- * halaman di DOM tetap benar (dipakai pageFlow untuk urutan navigasi).
+ * Bangun satu halaman (.view) untuk tiap kenangan -- satu foto +
+ * satu kalimat per halaman, persis pola di video referensi (bukan
+ * grid foto terpisah dari teks). Disisipkan ke placeholder-nya di
+ * HTML supaya urutan halaman di DOM tetap benar (dipakai pageFlow
+ * untuk urutan navigasi).
  */
-function renderQuotePages() {
-  const placeholder = document.querySelector("[data-quote-pages]");
+function renderMemoryPages() {
+  const placeholder = document.querySelector("[data-memory-pages]");
   if (!placeholder) return;
 
   const fragment = document.createDocumentFragment();
 
-  content.quoteLines.forEach((line, i) => {
+  content.memories.forEach(({ src, line }, i) => {
     const view = document.createElement("section");
-    view.className = "view";
-    view.id = `kutipan-${i + 1}`;
+    view.className = "view section--memory";
+    view.id = `kenangan-${i + 1}`;
     view.innerHTML = `
-      <p class="quote-line">${line}</p>
+      <figure class="photo-card">
+        <div class="photo-card__frame">
+          <img src="${src}" alt="${line}" loading="lazy"
+               onerror="this.closest('.photo-card__frame').innerHTML='Taruh foto di assets/images/'" />
+        </div>
+      </figure>
+      <p class="memory-line">${line}</p>
       <button class="btn" data-next>${content.continueLabel}</button>
     `;
     fragment.appendChild(view);
@@ -54,26 +62,6 @@ function renderLetterBody() {
 
   container.innerHTML = content.letterBody
     .map((sentence) => `<p class="letter-sentence">${sentence}</p>`)
-    .join("");
-}
-
-/** Render grid galeri foto dari content.gallery */
-function renderGallery() {
-  const container = document.querySelector("[data-gallery-grid]");
-  if (!container) return;
-
-  container.innerHTML = content.gallery
-    .map(
-      ({ src, caption }) => `
-      <figure class="photo-card">
-        <span class="washi-tape" aria-hidden="true"></span>
-        <div class="photo-card__frame">
-          <img src="${src}" alt="${caption}" loading="lazy"
-               onerror="this.closest('.photo-card__frame').innerHTML='Taruh foto di assets/images/'" />
-        </div>
-        <figcaption class="photo-card__caption">${caption}</figcaption>
-      </figure>`
-    )
     .join("");
 }
 
@@ -107,10 +95,9 @@ function init() {
 
   const steps = [
     ["konten", () => {
-      renderQuotePages();
+      renderMemoryPages();
       populateStaticText();
       renderLetterBody();
-      renderGallery();
     }],
     ["navigasi halaman", () => {
       pageFlow = initPageFlow();
