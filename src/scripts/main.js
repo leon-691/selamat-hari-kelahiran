@@ -2,7 +2,7 @@ import { content } from "../data/content.js";
 import { initPasswordGate } from "./passwordGate.js";
 import { initConfirmStep } from "./confirmStep.js";
 import { initMusicPlayer } from "./musicPlayer.js";
-import { initScrollReveal, initScrollProgress } from "./scrollReveal.js";
+import { initPageFlow } from "./pageFlow.js";
 import { initLetterScrub } from "./letterScrub.js";
 import { burstConfetti } from "./confetti.js";
 
@@ -22,14 +22,29 @@ function populateStaticText() {
   document.title = `Untuk ${content.friendName}`;
 }
 
-/** Render baris-baris kutipan singkat, satu fokus per layar */
-function renderQuoteLines() {
-  const container = document.querySelector("[data-quote-lines]");
-  if (!container) return;
+/**
+ * Bangun satu halaman (.view) terpisah untuk tiap kutipan singkat,
+ * lalu sisipkan ke tempat placeholder-nya di HTML -- supaya urutan
+ * halaman di DOM tetap benar (dipakai pageFlow untuk urutan navigasi).
+ */
+function renderQuotePages() {
+  const placeholder = document.querySelector("[data-quote-pages]");
+  if (!placeholder) return;
 
-  container.innerHTML = content.quoteLines
-    .map((line) => `<p class="quote-line">${line}</p>`)
-    .join("");
+  const fragment = document.createDocumentFragment();
+
+  content.quoteLines.forEach((line, i) => {
+    const view = document.createElement("section");
+    view.className = "view";
+    view.id = `kutipan-${i + 1}`;
+    view.innerHTML = `
+      <p class="quote-line">${line}</p>
+      <button class="btn" data-next>${content.continueLabel}</button>
+    `;
+    fragment.appendChild(view);
+  });
+
+  placeholder.replaceWith(fragment);
 }
 
 /** Render surat panjang sebagai kalimat-kalimat yang menyala saat discroll */
@@ -50,7 +65,7 @@ function renderGallery() {
   container.innerHTML = content.gallery
     .map(
       ({ src, caption }) => `
-      <figure class="photo-card reveal">
+      <figure class="photo-card">
         <span class="washi-tape" aria-hidden="true"></span>
         <div class="photo-card__frame">
           <img src="${src}" alt="${caption}" loading="lazy"
@@ -62,47 +77,25 @@ function renderGallery() {
     .join("");
 }
 
-function scrollTo(id) {
-  document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
-}
-
-function setupGate(music) {
+function setupGate(music, pageFlow) {
   initPasswordGate({
     password: content.password,
     wrongMessage: content.gateWrongMessage,
     onFirstInput: () => music.unlock(),
-    onSuccess: () => scrollTo("#sapaan"),
+    onSuccess: () => pageFlow.next(),
   });
 }
 
-function setupGreeting() {
-  document.querySelector("[data-greeting-next]")?.addEventListener("click", () => {
-    scrollTo("#konfirmasi");
-  });
-}
-
-function setupConfirm() {
+function setupConfirm(pageFlow) {
   const revealNumberEl = document.querySelector("[data-reveal-number]");
   if (revealNumberEl) revealNumberEl.textContent = content.age;
 
   initConfirmStep({
     onConfirm: () => {
-      scrollTo("#reveal");
+      pageFlow.next();
       revealNumberEl?.classList.add("is-flipping");
       setTimeout(() => burstConfetti(revealNumberEl), 300);
     },
-  });
-}
-
-function setupMessage() {
-  document.querySelector("[data-message-next]")?.addEventListener("click", () => {
-    scrollTo("#transisi");
-  });
-}
-
-function setupReplay() {
-  document.querySelector("[data-replay-button]")?.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 
@@ -110,12 +103,17 @@ function init() {
   // Tiap langkah dibungkus try/catch sendiri-sendiri -- kalau satu
   // fitur error (mis. salah format di content.js), fitur lain di
   // halaman ini tetap jalan normal, bukan mati total tanpa pesan.
+  let pageFlow;
+
   const steps = [
-    ["teks & konten", () => {
+    ["konten", () => {
+      renderQuotePages();
       populateStaticText();
-      renderQuoteLines();
       renderLetterBody();
       renderGallery();
+    }],
+    ["navigasi halaman", () => {
+      pageFlow = initPageFlow();
     }],
     ["musik & gerbang", () => {
       const music = initMusicPlayer({
@@ -123,14 +121,9 @@ function init() {
         title: content.backgroundAudioTitle,
         subtitle: content.backgroundAudioSubtitle,
       });
-      setupGate(music);
+      setupGate(music, pageFlow);
     }],
-    ["sapaan", setupGreeting],
-    ["konfirmasi", setupConfirm],
-    ["pesan utama", setupMessage],
-    ["tombol ulang", setupReplay],
-    ["animasi scroll", initScrollReveal],
-    ["progress bar", initScrollProgress],
+    ["konfirmasi", () => setupConfirm(pageFlow)],
     ["efek surat", initLetterScrub],
   ];
 

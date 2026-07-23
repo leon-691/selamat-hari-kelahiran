@@ -1,9 +1,12 @@
 # Website Ulang Tahun untuk Adik
 
-Kado digital sederhana, urutannya mengikuti video referensi:
-gerbang kata sandi → sapaan → konfirmasi (+ reaksi lucu kalau "belum
-siap") → reveal umur → pesan utama → galeri foto → kutipan singkat →
-lagu kenangan → surat panjang (dengan tombol "kembali ke awal").
+Kado digital sederhana, **page-based** (berpindah halaman dengan fade,
+bukan satu halaman scroll panjang) -- mengikuti gaya video referensi.
+Urutannya: gerbang kata sandi → sapaan → konfirmasi (+ reaksi lucu
+kalau "belum siap") → reveal umur → pesan utama → transisi → galeri
+foto → kutipan singkat (satu halaman per kalimat) → lagu kenangan →
+surat panjang (scroll internal, tombol "kembali ke awal" balik ke
+halaman pertama).
 
 ## 1. Yang wajib kamu isi sebelum di-deploy
 
@@ -51,12 +54,12 @@ index.html              halaman utama, semua section ada di sini
 src/
   styles/                design tokens & komponen CSS, terpisah per keperluan
   scripts/                logic interaktif, satu modul per fitur
-    passwordGate.js       gerbang PIN
-    confirmStep.js         konfirmasi yes/no + reaksi
-    letterScrub.js          efek sorotan baca di surat panjang
-    musicPlayer.js           widget musik mengambang
-    scrollReveal.js           animasi muncul saat discroll
-    confetti.js                efek konfeti
+    pageFlow.js             navigasi antar-halaman (page-based)
+    passwordGate.js        gerbang PIN
+    confirmStep.js           konfirmasi yes/no + reaksi
+    letterScrub.js             efek sorotan baca di surat panjang
+    musicPlayer.js               widget musik mengambang
+    confetti.js                    efek konfeti
   data/content.js         SEMUA teks & konfigurasi -- edit di sini saja
 assets/
   images/                 taruh foto di sini

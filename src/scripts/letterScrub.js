@@ -5,8 +5,9 @@
  * IntersectionObserver biasa, supaya terasa mengikuti posisi baca.
  */
 export function initLetterScrub() {
+  const container = document.querySelector("[data-scroll-container]");
   const sentences = [...document.querySelectorAll(".letter-sentence")];
-  if (!sentences.length) return;
+  if (!container || !sentences.length) return;
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     sentences.forEach((el) => el.classList.add("is-active"));
@@ -16,8 +17,9 @@ export function initLetterScrub() {
   let ticking = false;
 
   function update() {
-    const viewportCenter = window.innerHeight / 2;
-    const activeRange = window.innerHeight * 0.38;
+    const containerRect = container.getBoundingClientRect();
+    const viewportCenter = containerRect.top + containerRect.height / 2;
+    const activeRange = containerRect.height * 0.38;
 
     sentences.forEach((el) => {
       const rect = el.getBoundingClientRect();
@@ -36,7 +38,7 @@ export function initLetterScrub() {
     }
   }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  container.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   update();
 }

@@ -22,8 +22,11 @@ export const content = {
   // Umur yang dirayakan (angka besar di halaman reveal).
   age: 16,
 
-  // ------------------------------------------------------------------
-  // 1. GERBANG KATA SANDI -- halaman PALING PERTAMA dibuka
+  // Label tombol lanjut yang dipakai bersama di beberapa halaman
+  // sederhana (reveal, transisi, galeri, kutipan) -- biar konsisten.
+  continueLabel: "lanjut",
+
+
   // password harus string angka, panjangnya menentukan jumlah kotak PIN.
   // Contoh aman: tanggal lahir format DDMM -> "2807"
   // ------------------------------------------------------------------

@@ -78,12 +78,13 @@ a {
   border: 0;
 }
 
-/* Page shell: centers the experience as a soft "card" on desktop,
-   full-bleed on mobile -- keeps the intimate, phone-native feel
-   the format is built for, without looking stretched on desktop. */
+/* Page shell: satu "jendela" setinggi layar, isinya berpindah
+   halaman (fade), bukan tumbuh mengikuti konten. Di desktop tampil
+   sebagai kartu terpusat supaya tidak terlihat aneh saat melebar. */
 .page-backdrop {
-  min-height: 100svh;
+  height: 100svh;
   display: flex;
+  align-items: center;
   justify-content: center;
   background: linear-gradient(180deg, var(--color-bg-soft), var(--color-bg) 30%);
 }
@@ -91,10 +92,11 @@ a {
 .page {
   width: 100%;
   max-width: var(--content-width);
-  min-height: 100svh;
+  height: 100svh;
   background: var(--color-bg);
   position: relative;
   box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 
 @media (min-width: 640px) {
@@ -102,7 +104,7 @@ a {
     padding: var(--space-lg) 0;
   }
   .page {
-    min-height: auto;
+    height: min(100svh, 840px);
     border-radius: var(--radius-lg);
   }
 }

@@ -21,7 +21,7 @@
 </head>
 <body>
 
-  <!-- Sprite mascot -- didefinisikan sekali, dipakai ulang di beberapa section -->
+  <!-- Sprite mascot -- didefinisikan sekali, dipakai ulang di beberapa halaman -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="mascot-blob" viewBox="0 0 120 130">
       <ellipse cx="60" cy="118" rx="34" ry="6" fill="var(--color-shadow)" />
@@ -52,8 +52,8 @@
     </symbol>
   </svg>
 
-  <!-- Progress bar & music pill -- persisten di seluruh halaman -->
-  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+  <!-- Progress halaman & pil musik -- persisten di semua halaman -->
+  <div class="page-progress" data-page-progress aria-hidden="true"></div>
 
   <div class="music-pill is-paused" data-music-pill>
     <button class="music-pill__toggle" data-music-toggle aria-pressed="false" aria-label="Putar/jeda musik latar">▶</button>
@@ -67,8 +67,8 @@
   <div class="page-backdrop">
     <main class="page">
 
-      <!-- 1. GERBANG KATA SANDI (halaman pertama) -->
-      <section class="section section--gate" id="gerbang">
+      <!-- 1. GERBANG KATA SANDI -->
+      <section class="view is-active" id="gerbang">
         <svg class="mascot mascot--wave pop-in" aria-hidden="true"><use href="#mascot-blob" /></svg>
         <h1 class="fade-up fade-up--delay-1" data-key="gateSubtitle">coba tebak kodenya</h1>
         <div class="keypad-dots fade-up fade-up--delay-2" data-gate-dots></div>
@@ -89,15 +89,15 @@
         <p class="hint-text fade-up fade-up--delay-3" data-gate-message data-key="passwordClue">petunjuk</p>
       </section>
 
-      <!-- 2. SAPAAN (setelah kode benar) -->
-      <section class="section section--greeting" id="sapaan">
+      <!-- 2. SAPAAN -->
+      <section class="view" id="sapaan">
         <svg class="mascot mascot--wave" aria-hidden="true"><use href="#mascot-blob" /></svg>
         <h1 data-key="greetingText">hai!</h1>
-        <button class="btn" data-greeting-next data-key="greetingButton">lanjut</button>
+        <button class="btn" data-next data-key="greetingButton">lanjut</button>
       </section>
 
       <!-- 3. KONFIRMASI (yes/no + reaksi lucu kalau "belum siap") -->
-      <section class="section section--confirm" id="konfirmasi">
+      <section class="view" id="konfirmasi">
         <div data-confirm-question>
           <svg class="mascot" aria-hidden="true"><use href="#mascot-blob" /></svg>
           <h2 data-key="confirmQuestion">udah siap buka kejutannya?</h2>
@@ -114,55 +114,60 @@
       </section>
 
       <!-- 4. REVEAL UMUR -->
-      <section class="section section--reveal" id="reveal">
+      <section class="view" id="reveal">
         <p class="eyebrow" data-key="revealPrefix">selamat ulang tahun ke-</p>
         <div class="reveal-number" data-reveal-number>16</div>
         <h2 data-key="revealSuffix">semoga makin keren!</h2>
+        <button class="btn" data-next data-key="continueLabel">lanjut</button>
       </section>
 
       <!-- 5. PESAN UTAMA -->
-      <section class="section section--message" id="pesan-utama">
-        <div class="card reveal">
+      <section class="view" id="pesan-utama">
+        <div class="card">
           <h2 data-key="mainMessageTitle">buat kamu yang spesial</h2>
           <p data-key="mainMessageBody">Pesan hangat ada di sini.</p>
         </div>
-        <button class="btn reveal" data-message-next data-key="mainMessageButton">aku punya sesuatu buat kamu</button>
+        <button class="btn" data-next data-key="mainMessageButton">aku punya sesuatu buat kamu</button>
       </section>
 
       <!-- 6. TRANSISI -->
-      <section class="section section--transition" id="transisi">
-        <p class="transition-text reveal" data-key="transitionText">satu lagi, baca pelan-pelan ya</p>
+      <section class="view" id="transisi">
+        <p class="transition-text" data-key="transitionText">satu lagi, baca pelan-pelan ya</p>
+        <button class="btn" data-next data-key="continueLabel">lanjut</button>
       </section>
 
       <!-- 7. GALERI FOTO -->
-      <section class="section section--gallery" id="galeri">
-        <h2 class="reveal">kenangan kita</h2>
+      <section class="view" id="galeri">
+        <h2>kenangan kita</h2>
         <div class="gallery-grid" data-gallery-grid></div>
+        <button class="btn" data-next data-key="continueLabel">lanjut</button>
       </section>
 
-      <!-- 8. KUTIPAN SINGKAT (satu fokus per layar) -->
-      <section class="section section--quotes" id="kutipan" data-quote-lines></section>
+      <!-- 8. KUTIPAN SINGKAT -- dibuat JS, satu halaman per kalimat -->
+      <div data-quote-pages></div>
 
       <!-- 9. LAGU KENANGAN -->
-      <section class="section section--song" id="lagu">
-        <h2 class="reveal" data-key="songTitle">lagu-lagu buat kamu</h2>
-        <p class="reveal" data-key="songSubtitle">cerita singkat di sini</p>
+      <section class="view" id="lagu">
+        <h2 data-key="songTitle">lagu-lagu buat kamu</h2>
+        <p data-key="songSubtitle">cerita singkat di sini</p>
         <iframe
-          class="reveal"
           data-key-src="spotifyEmbedSrc"
           title="Playlist Spotify"
-          style="height: 352px;"
+          style="height: 300px;"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
         <p class="section--song__note">Kalau player di atas kosong, ganti dulu link playlist-nya di <code>content.js</code>.</p>
+        <button class="btn" data-next data-key="continueLabel">lanjut</button>
       </section>
 
-      <!-- 10. SURAT PANJANG (mengalir, tombol kembali ke awal di ujungnya) -->
-      <section class="section section--letter" id="surat">
-        <h2 class="letter-heading" data-key="letterHeading">selamat ulang tahun ya</h2>
-        <div class="letter-body" data-letter-body></div>
-        <button class="btn reveal" data-replay-button data-key="closingButton">kembali ke awal</button>
+      <!-- 10. SURAT PANJANG (scroll internal, tombol kembali ke awal di ujungnya) -->
+      <section class="view section--letter" id="surat">
+        <div class="letter-scroll" data-scroll-container>
+          <h2 class="letter-heading" data-key="letterHeading">selamat ulang tahun ya</h2>
+          <div class="letter-body" data-letter-body></div>
+          <button class="btn" data-go-start data-key="closingButton">kembali ke awal</button>
+        </div>
       </section>
 
     </main>
